@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog
 from PIL import ImageTk, Image
 
+from buttons.select_image import SelectImage
+
 
 class View:
     def __init__(self):
@@ -34,8 +36,8 @@ class View:
         # Define os botões
         self.create_model_button = ttk.Button(self.root, text="Criar Modelo")
         self.load_model_button = ttk.Button(self.root, text="Carregar Modelo")
-        self.select_image_button = ttk.Button(self.root, text="Selecionar Imagem", command=self.select_image)
-        self.classify_image_button = ttk.Button(self.root, text="Classificar Imagem", command=self.classify_image)
+        self.select_image_button = ttk.Button(self.root, text="Selecionar Imagem", command=SelectImage.action())
+        self.classify_image_button = ttk.Button(self.root, text="Classificar Imagem")
 
         # Define a zona de texto
         self.result_text = tk.Text(self.root, height=2, bg="#f6f8fa", borderwidth=0)
@@ -47,20 +49,6 @@ class View:
         self.select_image_button.pack(pady=10)
         self.classify_image_button.pack(pady=10)
         self.result_text.pack(pady=10)
-
-    def select_image(self):
-        # Abre janela para selecionar imagem
-        file_path = filedialog.askopenfilename(title="Selecionar Imagem", filetypes=(("Imagens", "*.jpg;*.jpeg;*.png"),))
-        # Carrega imagem na janela
-        self.image = Image.open(file_path)
-        self.image = self.image.resize((250, 250))
-        self.image = ImageTk.PhotoImage(self.image)
-        self.label_image.configure(image=self.image)
-        self.label_image.image = self.image
-
-    def classify_image(self):
-        # Implementação do método para classificar imagem
-        pass
 
     def run(self):
         self.root.mainloop()
